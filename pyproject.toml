@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "seedpea-mcp-adapter"
+version = "0.1.0"
+description = "Public preview of a bounded, read-only SeedPEA MCP adapter"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+  {name = "Christopher Daniel Pang"},
+]
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+dependencies = [
+  "mcp==1.28.0",
+]
+
+[project.urls]
+Homepage = "https://branchlinesystems.com/seedpea"
+Repository = "https://github.com/Grativy6/seedpea-mcp-adapter"
+Issues = "https://github.com/Grativy6/seedpea-mcp-adapter/issues"
+
+[project.scripts]
+seedpea-mcp-adapter = "seedpea_adapter.server:main"
+
+[tool.setuptools.packages.find]
+include = ["seedpea_adapter*"]
