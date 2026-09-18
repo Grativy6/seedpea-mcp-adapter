@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "seedpea-foundation"
+version = "0.1.0"
+description = "Independent bounded SeedPEA foundation contracts"
+requires-python = ">=3.11"
+authors = [{name = "Christopher Daniel Pang"}]
+license = "Apache-2.0"
+dependencies = ["peaches-book==0.1.0"]
+
+[project.urls]
+Repository = "https://github.com/Grativy6/seedpea-mcp-adapter"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["seedpea_foundation*"]

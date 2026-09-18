@@ -1,4 +1,5 @@
-"""Public SeedPEA MCP adapter preview."""
+"""Public SeedPEA MCP adapter and shared foundation entry point."""
+from seedpea_foundation import FOUNDATION_VERSION, register_foundation
 
 from .core import (
     ADAPTER_VERSION,

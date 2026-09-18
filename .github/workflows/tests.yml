@@ -15,14 +15,24 @@ jobs:
         python-version: ["3.11", "3.12"]
     steps:
       - uses: actions/checkout@v4
+      - name: Checkout the pinned Book of Peaches dependency
+        uses: actions/checkout@v4
+        with:
+          repository: Grativy6/book-of-peaches
+          ref: c91ab35dcb6b594f91d59ebe08d45cad005d2c04
+          path: book-of-peaches
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - run: python -m pip install .
-      - run: python -m unittest discover -s tests -v
-      - name: Smoke-test installed MCP surface
+      - name: Install pinned test dependencies and local dependency chain
         run: >-
-          python -c "import json;
-          from seedpea_adapter.server import status;
-          manifest=json.loads(status());
-          assert manifest['effects']['registration'] == 'NONE'"
+          python -m pip install
+          "pytest==8.4.2"
+          "cryptography==50.0.1"
+          ./book-of-peaches
+          ./packages/foundation
+          .
+      - name: Run adapter and foundation tests
+        run: python -m pytest -q tests packages/foundation/tests
+      - name: Run standalone MCP stdio smoke test
+        run: python -m pytest -q tests/test_stdio.py

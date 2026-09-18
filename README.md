@@ -1,116 +1,84 @@
 # SeedPEA MCP Adapter
 
-SeedPEA is Branchline Systems' institution-facing portal. It is intended to
-let an institution register and steward a Branchline branch in its own name,
-rather than attaching every branch directly to an individual person. This
-repository is an early, local MCP implementation surface for that direction.
+SeedPEA provides a small, local foundation for systems that need traceable
+reasoning, separately sourced grants, candidate review, and room for human
+choice. Its default adapter contains PAL, CHARTER, PECAN, PEA, SEED, source and
+compatibility checks, and offline PEACHES preparation and verification.
 
-Institutional registration does not make an institution anonymous or
-self-authorizing. A declared branch boundary must still keep responsible human
-roles, authorized operators, the institution's authority source, scope,
-affected people, consent dependencies, contest, expiry, and revocation visible.
-Refusal, correction, and remedy routes must remain visible as well.
+**Review build: adapter 0.2.0; shared foundation 0.1.0.** This is a finite
+software adaptation with explicit limits, not blanket framework conformance.
+Christopher Daniel Pang authored the source frameworks; AI assistance remains
+tool assistance.
 
-**Status:** public preview (`0.1.0`), experimental, non-self-executing, and not
-a specification-conformance claim.
+## Install and connect
 
-Christopher Daniel Pang is the author and original steward of the associated
-framework lineage. AI systems assist as tools; they are not co-authors or
-authorities.
+Python 3.11 or later is required. The three required distributions are
+`peaches-book==0.1.0`, `seedpea-foundation==0.1.0`, and
+`seedpea-mcp-adapter==0.2.0`. Review artifacts are not published to a package
+registry. Install their wheels from the build wheelhouse, or install the Book
+of Peaches checkout, this repository's foundation, and this checkout in order:
 
-## What this adapter does
-
-The adapter performs deterministic structural checks on user-supplied JSON:
-
-- `review_evaluator_grant_json` checks whether the declared PEA evaluator-grant
-  boundary is complete enough to be returned for accountable review.
-- `review_release_envelope_json` checks whether a human-facing release declares
-  minimum public boundary fields such as audience, purpose, uncertainty,
-  privacy, correction, contest, stopping, and reopening.
-- `inspect_authority_separation_json` checks that description, recommendation,
-  permission, and authorization remain separately declared.
-- `review_institutional_branch_registration_json` checks whether a proposed
-  institution-held branch declares the minimum registration boundary for later
-  accountable review.
-- `seedpea://status` reports the adapter version, reviewed source versions,
-  effects, and non-claims.
-
-`COMPLETE_FOR_REVIEW` means only that the required fields are present and
-non-blank. It does **not** mean true, safe, ethical, compliant, permitted,
-authorized, approved, or ready to execute.
-
-For an institutional branch declaration, responsible-human roles and
-authorized operators must also be non-empty lists of non-empty strings. The
-adapter does not verify the identities, relationships, or authority claimed by
-those strings.
-
-## Current boundary
-
-- Local MCP transport
-- Text/JSON inputs and outputs
-- Deterministic, read-only inspection
-- No model call
-- No filesystem access
-- No shell execution
-- No credential access
-- No network or external API access
-- No autonomous decision or action
-- No branch, account, role, or operator registration
-- A 100,000-character input ceiling for this preview
-
-The adapter does not make law, certify compliance, determine institutional
-policy, manufacture consent or standing, authorize execution, or replace
-affected people, professional duties, democratic processes, or accountable
-judgment.
-
-The SeedPEA portal itself is not implemented in this preview. The registration
-tool checks a declaration only; it does not create a branch, account,
-institutional relationship, user role, permission, or authorization.
-
-## Install and run
-
-Python 3.11 or newer is required.
-
-```bash
-python -m venv .venv
-python -m pip install -e .
-python server.py
+```text
+python -m pip install <book-of-peaches-checkout>
+python -m pip install ./packages/foundation
+python -m pip install .
+python -m seedpea_adapter.server
 ```
 
-Run the deterministic core tests without starting the MCP server:
+The last command starts an MCP stdio server. Configure the host with the virtual
+environment's Python executable and arguments `["-m","seedpea_adapter.server"]`.
+No model, running Hearthline service, private repository, scheduler, signing
+key or production book is required.
 
-```bash
-python -m unittest discover -s tests -v
+## Supported operations
+
+| Tool | Finite operation |
+| --- | --- |
+| `pal_review_packet` | Account snapshots, immutable receipt continuity, separate tests and scoped closure, residuals and reopening. |
+| `charter_check_contract` | Separate work, completion-criterion and ledger duties; finite limits, selected carry and finish evidence. |
+| `pecan_check_crossing` | Separate stages and declared subject/object/action/scope, consent, expiry, revocation and remaining uses. |
+| `pea_explain_candidate` | Scoped evaluator grant, sourced reasons and unresolved conditions for human review. |
+| `seed_review_release` | Sourced claims, limits, choices, refusal, correction, reopening and natural stop. |
+| `source_registry_resource` | List/search references, exact-version read, compare supplied content to a declared digest. |
+| `compatibility_profile_resource` | PAL 2.3 adaptation, original PAL 2.2 preview and unchanged PPP 0.6 declaration. |
+| `peaches_prepare_stamp`, `peaches_verify_stamp` | Prepare test input or verify signatures under separately supplied context. No append. |
+
+The three minimal preview checks remain available through the same maintained
+implementation. Set `SEEDPEA_PROFILE=institution` to include the optional
+institutional declaration check. It does not create accounts or submit to an
+institution. The shared foundation is maintained here and used directly by the
+public Hearthline toolkit.
+
+JSON arguments are bounded strings. Duplicate keys, malformed values and
+excessive inputs are rejected. See [operational contracts](docs/OPERATIONAL_CONTRACTS.md)
+for fixtures, statuses and recovery limits.
+
+## Meaning and limits
+
+`STRUCTURALLY_VALID_FOR_NAMED_PROFILE` concerns only the declared finite
+profile. It supplies no truth, ethics, consent, standing, permission or
+authority. PECAN reports declared current grant usability separately from
+structural validity. PEA leaves disposition to the human route. PEACHES
+verification cannot manufacture a canonical registration receipt.
+
+No reviewed action is executed; grants are not consumed or renewed. No model
+call, private-memory access or recurring work is performed.
+
+The source versions remain PAL 2.3, CHARTER 1.0, PECAN 1.0.4, PEA Core 1.1.3,
+SEED 0.3 and PPP 0.6. PPP's PAL 2.2 dependency and the original preview's PAL
+2.2 target remain historical facts. Native transport profiles and mathematical
+realizations are not certified by this adapter. Source references neither
+become instructions nor relicense papers.
+
+## Verify and recover
+
+```text
+python -m pytest -q tests packages/foundation/tests
 ```
 
-## Source boundaries
+Cross-adapter integration tests additionally require the separately installed
+Hearthline toolkit. The minimal foundation remains usable without it.
+The original 16 deterministic preview checks and repository history are retained.
 
-This adapter is informed by the following public sources, each controlling only
-its declared role:
-
-- [PAL v2.2](https://doi.org/10.5281/zenodo.21891598) — structural trace,
-  authority ceilings, residuals, and reopening.
-- [PECAN v1.0.4](https://doi.org/10.5281/zenodo.21760884) — consequential
-  crossings and authority lineage.
-- [PEA Core v1.1.3](https://doi.org/10.5281/zenodo.21911684) — bounded authority
-  audit and candidate ethical review under an external grant.
-- [SEED v0.3](https://doi.org/10.5281/zenodo.21760893) — human-facing release
-  discipline preserving agency and room to stop.
-
-These materials belong to one authored lineage and are not independent
-corroboration of one another. This implementation does not claim conformance to
-any of them.
-
-## Development lineage
-
-The June 2026 prototype used a keyword classifier and an echo tool. The public
-preview removes both because keyword matching cannot honestly establish a help,
-ethical, permission, or authority boundary. Later implementations may extend
-the typed review surface through explicit versioned migrations and tests.
-
-Strongwiz and the Branchline application are separate projects. No live or
-unreleased Strongwiz working state is included here.
-
-See [Boundaries](docs/BOUNDARIES.md), [Privacy](docs/PRIVACY.md),
-[Migration](docs/MIGRATION.md), [Changelog](CHANGELOG.md), and
-[Licensing](LICENSES.md).
+See [boundaries](docs/BOUNDARIES.md), [privacy](docs/PRIVACY.md),
+[migration history](docs/MIGRATION.md) and [licensing](LICENSES.md).
