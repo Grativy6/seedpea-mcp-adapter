@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "seedpea-mcp-adapter"
-version = "0.1.0"
-description = "Public preview of a bounded, read-only SeedPEA MCP adapter"
+version = "0.2.0"
+description = "Bounded SeedPEA MCP adapter with an independently installable foundation"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [
@@ -14,6 +14,7 @@ authors = [
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 dependencies = [
+  "seedpea-foundation==0.1.0",
   "mcp==1.28.0",
 ]
 
@@ -25,5 +26,10 @@ Issues = "https://github.com/Grativy6/seedpea-mcp-adapter/issues"
 [project.scripts]
 seedpea-mcp-adapter = "seedpea_adapter.server:main"
 
+[tool.setuptools.package-dir]
+"" = "."
+
 [tool.setuptools.packages.find]
-include = ["seedpea_adapter*"]
+where = ["."]
+include = ["seedpea_adapter"]
+namespaces = false
