@@ -36,6 +36,11 @@ def test_real_foundation_equivalence(tmp_path):
             assert "review_institutional_branch_registration_json" not in seed_tools
             cases = [
                 ("foundation_status", {}),
+                ("pal24_source_profile_resource", {}),
+                ("compatibility_profile_resource", {}),
+                ("compatibility_profile_resource", {"pal_version":"2.3"}),
+                ("pal24_review_resume", {"packet_json":'{}'}),
+                ("pal24_review_resources", {"packet_json":'{}'}),
                 ("charter_check_contract", {"contract_json":json.dumps(charter())}),
                 ("pecan_check_crossing", {"crossing_json":json.dumps(crossing())}),
                 ("pea_explain_candidate", {"candidate_json":json.dumps(pea())}),
