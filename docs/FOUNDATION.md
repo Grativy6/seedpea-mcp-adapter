@@ -10,8 +10,8 @@ execute actions, create stamps, or claim conformance to a source
 specification. Every result carries `authority_effect: NONE` and
 `execution_effect: NONE`.
 
-Install `seedpea-foundation==0.1.0` as its own distribution, then install the
-adapter `seedpea-mcp-adapter==0.2.0`. The adapter depends on the foundation and
+Install `seedpea-foundation==0.2.0` as its own distribution, then install the
+adapter `seedpea-mcp-adapter==0.3.0`. The adapter depends on the foundation and
 reexports its legacy preview surface; the foundation can be installed and
 used independently by another adapter. The shared MCP registration function
 is:
@@ -24,5 +24,7 @@ register_foundation(mcp, include_institution=False)
 The institutional profile is opt-in. No private repository, model provider,
 scheduler, lore, or live book key is required.
 
-PAL 2.3 and PPP 0.6 appear as an explicit compatibility profile. Version
-labels are mappings and do not establish formal conformance.
+PAL 2.4 adds separate [pointwise recovery and resource checks](PAL24_PROFILE.md)
+with [pinned published sources](PAL24_SOURCES.md). The PAL 2.3 account checker
+and compatibility profile remain available; PPP 0.6 retains its original
+PAL 2.2 dependency. Version labels are mappings, not formal conformance.

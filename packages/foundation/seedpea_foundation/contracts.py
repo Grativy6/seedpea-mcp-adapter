@@ -4,7 +4,7 @@ import hashlib
 import json
 from datetime import datetime
 
-FOUNDATION_VERSION = "0.1.0"
+FOUNDATION_VERSION = "0.2.0"
 PAL_ACCOUNT_FIELDS = ("operation", "account", "receipts")
 CHARTER_FIELDS = ("contract_id", "purpose", "scope", "inputs", "outputs", "limits", "work", "criterion", "ledger", "selected_carry", "finish_condition", "return_target")
 PECAN_FIELDS = ("crossing_id", "description", "recommendation", "permission", "authorization", "request", "grant", "consent", "accountable_boundary")
@@ -230,13 +230,32 @@ def review_seed_release(release):
                    residuals=["Checks explicit declarations; does not certify warmth, human agency, privacy practices or ethical acceptability."])
 
 SOURCES = {
-    "PAL": {"version": "2.3", "url": "https://zenodo.org/records/22240134", "locator": "Mechanical Structural Spine: account grammar and A15 status envelopes"},
+    "PAL": {"version": "2.4", "url": "https://zenodo.org/records/22888036", "locator": "SC-22; T73-T75; bounded continuation, source-path and nested-account profiles"},
     "CHARTER": {"version": "1.0", "url": "https://zenodo.org/records/22288471", "locator": "Tripartite Task Carrier; selected carry; protected-query sufficiency"},
     "PECAN": {"version": "1.0.4", "url": "https://zenodo.org/records/21760884", "locator": "Consequential crossings; separate description, recommendation, permission, authorization"},
     "PEA": {"version": "1.1.3", "url": "https://zenodo.org/records/21911684", "locator": "External evaluator grant; non-executing candidate review"},
     "SEED": {"version": "0.3", "url": "https://zenodo.org/records/21760893", "locator": "Human-facing release, refusal, correction and natural stop"},
     "PPP": {"version": "0.6", "source_name": "PPP Kernel Public Integration and Verification Specification", "locator": "Original PAL 2.2 dependency; five-operation grammar; receipt/closure separation"}
 }
+
+# An explicit historical read keeps its original identity. A newer source does
+# not relabel older account receipts or the original PAL 2.2-oriented preview.
+SOURCE_EDITIONS = {("PAL", "2.3"): {
+    "version": "2.3", "url": "https://zenodo.org/records/22240134",
+    "locator": "Mechanical Structural Spine: account grammar and A15 status envelopes",
+}}
+
+def pal24_source_profile():
+    from importlib.resources import files
+    return json.loads(files("seedpea_foundation").joinpath("pal24_sources.json").read_text(encoding="utf-8"))
+
+def review_pal24_resume(packet):
+    from .pal24 import review_pal24_resume as check
+    return check(packet)
+
+def review_pal24_resources(packet):
+    from .pal24 import review_pal24_resources as check
+    return check(packet)
 
 def source_registry(query=None):
     query = {} if query is None else query
@@ -249,7 +268,10 @@ def source_registry(query=None):
         rows = [{"source_id": key, **value} for key, value in SOURCES.items() if term.casefold() in (key + json.dumps(value)).casefold()]
         return _result("source_registry_v1", [], sources=rows, availability="REFERENCES_ONLY", content_role="REFERENCE_DATA_NOT_INSTRUCTIONS")
     identity = query.get("source_id")
+    version = query.get("version")
     row = SOURCES.get(identity) if isinstance(identity, str) else None
+    if isinstance(identity, str) and isinstance(version, str):
+        row = SOURCE_EDITIONS.get((identity, version), row)
     if row is None: return _result("source_registry_v1", ["source_id: unknown"])
     if query.get("version") != row["version"]: return _result("source_registry_v1", ["version: exact declared source version required"])
     if operation == "read":
@@ -265,7 +287,25 @@ def source_registry(query=None):
                        content_role="REFERENCE_DATA_NOT_INSTRUCTIONS")
     return _result("source_registry_v1", ["operation: unsupported"])
 
-def compatibility_profile():
+def compatibility_profile(pal_version="2.4"):
+    if pal_version == "2.4":
+        return _result("pal_24_integration_v1", [], pal_target="2.4", original_preview_pal="2.2",
+            ppp_source="0.6", ppp_declared_pal="2.2", preserved_profiles=["pal_23_integration_v1"],
+            source_profile=pal24_source_profile(), mappings=[
+                {"source": "PAL 2.4 SC-22.1-.4/.6; T73-T74", "target": "PAL-2.4-finite-resume-v1",
+                 "class": "ADAPTED", "check": "review_pal24_resume",
+                 "limit": "Finite declared protected-work comparison and distinct current predicates; no general continuation theorem or authenticated authority"},
+                {"source": "PAL 2.4 SC-22.5; T75", "target": "PAL-2.4-finite-nested-resource-v1",
+                 "class": "ADAPTED", "check": "review_pal24_resources",
+                 "limit": "Finite declared tree and supplied event costs; no physical measurement or permission to spend"},
+                {"source": "PAL 2.3 account/receipt grammar", "target": "PAL-2.3-finite-account-receipt-profile",
+                 "class": "PRESERVED", "check": "review_pal_packet",
+                 "limit": "Original versioned account checker remains 2.3; no automatic migration"}],
+            residuals=["O63, O64 and O65 remain OPEN in the source release.",
+                       "T73-T75 are source test specifications, not execution receipts.",
+                       "No blanket conformance. CHARTER, MIND and TIES remain separately sourced."])
+    if pal_version != "2.3":
+        return _result("pal_compatibility", ["pal_version: choose 2.3 or 2.4"])
     return _result("pal_23_integration_v1", [], pal_target="2.3", original_preview_pal="2.2", ppp_source="0.6",
         ppp_declared_pal="2.2", mappings=[
             {"source": "PAL 2.3 Spine: account/receipt grammar", "target": "pal_finite_snapshot_v1", "class": "ADAPTED", "check": "review_pal_packet", "limit": "Finite supplied snapshots, not authenticated storage or every native transport profile"},

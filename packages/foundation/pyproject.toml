@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "seedpea-foundation"
-version = "0.1.0"
+version = "0.2.0"
 description = "Independent bounded SeedPEA foundation contracts"
 requires-python = ">=3.11"
 authors = [{name = "Christopher Daniel Pang"}]
@@ -17,3 +17,6 @@ Repository = "https://github.com/Grativy6/seedpea-mcp-adapter"
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["seedpea_foundation*"]
+
+[tool.setuptools.package-data]
+seedpea_foundation = ["pal24_sources.json"]

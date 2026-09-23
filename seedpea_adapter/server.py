@@ -24,7 +24,7 @@ register_foundation(mcp, include_institution=profile == "institution")
 def status() -> str:
     """Return the adapter's versioned status and non-claims."""
 
-    return json.dumps({"adapter_version":"0.2.0", "foundation_version":"0.1.0",
+    return json.dumps({"adapter_version":"0.3.0", "foundation_version":"0.2.0",
                        "profile":profile, "integration":compatibility_profile(),
                        "preserved_legacy_preview":status_manifest()}, indent=2, sort_keys=True)
 

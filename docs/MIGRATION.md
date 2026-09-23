@@ -25,3 +25,18 @@ private development notes are included.
 
 Any later adoption from another project requires a new source record,
 compatibility review, migration entry, and tests.
+
+## PAL v2.4 finite integration, 2026-09-22
+
+Foundation 0.2.0 and adapter 0.3.0 add separate pointwise recovery and nested
+resource profiles. The active registry references PAL v2.4 at DOI
+10.5281/zenodo.22888036, with five exact artifact pins in the packaged manifest.
+The PAL 2.3 account checker and exact-version registry entry remain unchanged
+in meaning; `compatibility_profile_resource(pal_version="2.3")` returns the
+historical mapping. The default mapping now describes the additive v2.4 path.
+The original preview's PAL 2.2 identity and PPP 0.6 dependency remain historical.
+
+There is no stored-account migration or retroactive relabeling of receipts.
+O63-O65 remain OPEN in the source. Tests cover this finite implementation only.
+Installations require an explicit package update; repository changes do not
+activate a running host or renew any grant. See [the profile](PAL24_PROFILE.md).

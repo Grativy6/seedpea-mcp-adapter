@@ -1,0 +1,52 @@
+{
+  "schema": "seedpea.pal-source-manifest.v1",
+  "source_id": "PAL",
+  "version": "2.4",
+  "doi": "10.5281/zenodo.22888036",
+  "record_url": "https://zenodo.org/records/22888036",
+  "artifacts": [
+    {
+      "filename": "PAL_v2.4-C_Compatibility_Note.docx",
+      "sha256": "78f88a18d14441ab9778b4cacf303a174a48d876fcb0e9b35abda8424a538f50",
+      "published_md5": "fca87e771cccce27336bc449a1d06098",
+      "download_url": "https://zenodo.org/api/records/22888036/files/PAL_v2.4-C_Compatibility_Note.docx/content"
+    },
+    {
+      "filename": "PAL_v2.4_Mechanical_Structural_Spine.docx",
+      "sha256": "692d260363c273d525979fd7766accaa848f143677711a879a0d930ad763fee9",
+      "published_md5": "bebae9a7b696e135fb07e17cb4b06ae2",
+      "download_url": "https://zenodo.org/api/records/22888036/files/PAL_v2.4_Mechanical_Structural_Spine.docx/content"
+    },
+    {
+      "filename": "PAL_v2.4-L_Obligation_and_Decision_Ledger.docx",
+      "sha256": "976adffa81bb559f13787f629f276e606ca0211c835138b21b1d42038ba5adc0",
+      "published_md5": "ecec32486b39a4a30628300172c32c4e",
+      "download_url": "https://zenodo.org/api/records/22888036/files/PAL_v2.4-L_Obligation_and_Decision_Ledger.docx/content"
+    },
+    {
+      "filename": "PAL_v2.4-M_Mathematical_Realization_Atlas.docx",
+      "sha256": "a27603bab38275942df7eb846e028a079ce04234cd1fe3a9102a320cd51e19e4",
+      "published_md5": "734a32b8ba49c7bb914968490ef442a1",
+      "download_url": "https://zenodo.org/api/records/22888036/files/PAL_v2.4-M_Mathematical_Realization_Atlas.docx/content"
+    },
+    {
+      "filename": "PAL_v2.4-T_Conformance_Tests.docx",
+      "sha256": "4a887ba974086a6693796658716b0973c11a55adbff58f7eaf8cbeb279861f0a",
+      "published_md5": "a14e18a4a2e2918c55d7c3f478127385",
+      "download_url": "https://zenodo.org/api/records/22888036/files/PAL_v2.4-T_Conformance_Tests.docx/content"
+    }
+  ],
+  "source_obligations": {
+    "O63": "OPEN",
+    "O64": "OPEN",
+    "O65": "OPEN"
+  },
+  "limits": [
+    "This manifest identifies the published source artifacts; it is not an authenticity, truth, permission, authority, or adoption claim.",
+    "The adapter profile is a bounded finite review of declared packets, not PAL v2.4 conformance and not a replacement for the published source.",
+    "PAL work recovery is distinct from grant, resource, authority, audit, and trace reset or renewal. A recovered work state does not imply equality of those non-work coordinates.",
+    "Unknown required evidence remains unknown. A fail-closed decision may decline a transition but cannot relabel an unknown check as pass, zero, or complete.",
+    "MIND, TIES, CHARTER, PECAN, PEA, SEED, and other frameworks remain separately sourced; proximity does not make them PAL layers or dependencies.",
+    "Tests named T73, T74, and T75 are source test specifications. They are not execution receipts or evidence that the wider PAL obligations are closed."
+  ]
+}

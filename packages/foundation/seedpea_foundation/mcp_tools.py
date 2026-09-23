@@ -49,6 +49,16 @@ def register_foundation(mcp:Any,*,include_institution=False)->Any:
     @mcp.tool(annotations=READ_ONLY)
     def pal_review_packet(packet_json:str):return _review(packet_json, review_pal_packet)
     @mcp.tool(annotations=READ_ONLY)
+    def pal24_review_resume(packet_json:str):
+        """Compare declared recovered work and distinct current conditions; no authority or general continuation proof."""
+        return _review(packet_json, review_pal24_resume)
+    @mcp.tool(annotations=READ_ONLY)
+    def pal24_review_resources(packet_json:str):
+        """Review finite nested resource attribution; an unknown required cost stays unknown."""
+        return _review(packet_json, review_pal24_resources)
+    @mcp.tool(annotations=READ_ONLY)
+    def pal24_source_profile_resource():return pal24_source_profile()
+    @mcp.tool(annotations=READ_ONLY)
     def charter_check_contract(contract_json:str):return _review(contract_json, check_charter_contract)
     @mcp.tool(annotations=READ_ONLY)
     def pecan_check_crossing(crossing_json:str,observed_at:str|None=None):return _review(crossing_json, lambda value: check_pecan_crossing(value,observed_at))
@@ -60,7 +70,7 @@ def register_foundation(mcp:Any,*,include_institution=False)->Any:
     def source_registry_resource(query_json:str=""):
         return source_registry() if not query_json else _review(query_json, source_registry)
     @mcp.tool(annotations=READ_ONLY)
-    def compatibility_profile_resource():return compatibility_profile()
+    def compatibility_profile_resource(pal_version:str="2.4"):return compatibility_profile(pal_version)
     @mcp.tool(annotations=READ_ONLY)
     def peaches_prepare_stamp(payload_json:str, context_json:str=""):return _peaches_prepare(payload_json,context_json)
     @mcp.tool(annotations=READ_ONLY)
